@@ -1,0 +1,68 @@
+<%- include('partials/header') %>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4 p-md-5">
+        <h1 class="h3 mb-3">Add a New Author</h1>
+
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/addAuthor" method="POST" class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">First Name</label>
+                <input type="text" name="firstName" class="form-control" value="<%= authorForm.firstName || '' %>" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Last Name</label>
+                <input type="text" name="lastName" class="form-control" value="<%= authorForm.lastName || '' %>" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Sex</label>
+                <select name="sex" class="form-select" required>
+                    <option value="">Select</option>
+                    <option value="F" <%= authorForm.sex === 'F' ? 'selected' : '' %>>Female</option>
+                    <option value="M" <%= authorForm.sex === 'M' ? 'selected' : '' %>>Male</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" name="dob" class="form-control" value="<%= authorForm.dob || '' %>" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Date of Death</label>
+                <input type="date" name="dod" class="form-control" value="<%= authorForm.dod || '' %>">
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Profession</label>
+                <input type="text" name="profession" class="form-control" value="<%= authorForm.profession || '' %>" required>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Country</label>
+                <input type="text" name="country" class="form-control" value="<%= authorForm.country || '' %>" required>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Portrait URL</label>
+                <input type="url" name="pictureUrl" class="form-control" value="<%= authorForm.pictureUrl || '' %>" required>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Biography</label>
+                <textarea name="bio" class="form-control" rows="4" required><%= authorForm.bio || '' %></textarea>
+            </div>
+
+            <div class="col-12 d-flex gap-2">
+                <button class="btn btn-primary">Add Author</button>
+                <a href="/authors" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

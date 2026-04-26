@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">All Authors</h1>
+    <a href="/addAuthor" class="btn btn-primary btn-sm">Add Author</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Profession</th>
+                <th>Country</th>
+                <th style="width: 190px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let i of authors) { %>
+                <tr>
+                    <td><%= i.firstName %> <%= i.lastName %></td>
+                    <td><%= i.profession || '' %></td>
+                    <td><%= i.country || '' %></td>
+                    <td>
+                        <a href="/updateAuthor?authorId=<%= i.authorId %>" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <form action="/deleteAuthor" method="POST" class="d-inline" onsubmit="return confirm('Delete this author?');">
+                            <input type="hidden" name="authorId" value="<%= i.authorId %>">
+                            <button class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<%- include('partials/footer') %>

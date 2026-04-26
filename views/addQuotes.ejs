@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+<div class="card">
+    <div class="card-body">
+        <h1 class="h3 mb-3">Add New Quote</h1>
+
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/addQuote" method="POST" class="row g-3">
+            <div class="col-12">
+                <label class="form-label">Quote</label>
+                <textarea name="quote" class="form-control" rows="3" required><%= quoteForm.quote || '' %></textarea>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Category (from database)</label>
+                <select name="category" class="form-select">
+                    <option value="">Choose category</option>
+                    <% for (let c of categories) { %>
+                        <option value="<%= c.category %>" <%= quoteForm.category === c.category ? 'selected' : '' %>><%= c.category %></option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label">Or New Category</label>
+                <input type="text" name="newCategory" class="form-control" value="<%= quoteForm.newCategory || '' %>">
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Author (from database)</label>
+                <select name="authorId" class="form-select" required>
+                    <option value="">Choose author</option>
+                    <% for (let a of authors) { %>
+                        <option value="<%= a.authorId %>" <%= String(quoteForm.authorId) === String(a.authorId) ? 'selected' : '' %>>
+                            <%= a.firstName %> <%= a.lastName %>
+                        </option>
+                    <% } %>
+                </select>
+            </div>
+
+            <div class="col-12 d-flex gap-2">
+                <button class="btn btn-primary">Add Quote</button>
+                <a href="/quotes" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+<%- include('partials/footer') %>

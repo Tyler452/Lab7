@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">All Quotes</h1>
+    <a href="/addQuote" class="btn btn-primary btn-sm">Add Quote</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+        <thead>
+            <tr>
+                <th>Quote</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th style="width: 190px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let i of quotes) { %>
+                <tr>
+                    <td><%= i.quote %></td>
+                    <td><%= i.category || '' %></td>
+                    <td><%= (i.firstName && i.lastName) ? i.firstName + ' ' + i.lastName : 'Unknown' %></td>
+                    <td>
+                        <a href="/updateQuote?quoteId=<%= i.quoteId %>" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <form action="/deleteQuote" method="POST" class="d-inline" onsubmit="return confirm('Delete this quote?');">
+                            <input type="hidden" name="quoteId" value="<%= i.quoteId %>">
+                            <button class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<%- include('partials/footer') %>
